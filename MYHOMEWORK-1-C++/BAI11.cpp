@@ -5,16 +5,16 @@ using namespace std;
 //ham sap xep insert giam dan
 int insertsort_giam(int a[], int n)
 {
-	for(int i=n-2; i>=0; i--)
+	for(int i=1; i<n; i++)
 	{
 		int tempo =a[i];
-		int j=i+1;
-		while (j<=n-1 && tempo< a[j])
+		int j=i-1;
+		while (j>=0 && a[j]<tempo)
 		{
-			a[j-1]=a[j];
-			j=j+1;
+			a[j+1]=a[j];
+			j=j-1;
 		}
-		a[j-1]=tempo;
+		a[j+1]=tempo;
 	}
 	
 	cout<<"mang sau khi sap xep la:"<<endl;
