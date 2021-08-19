@@ -5,12 +5,12 @@ using namespace std;
 //ham sap xep bubble giam dan
 int bubblesort_giam(int a[], int n)
 {
-	for (int i=n-1;i>=0;i--)
+	for (int i=0;i<n;i++)
 	{
-		for(int j=0;j<i;j++)
+		for(int j=n-1;j>i;j--)
 		{
-			if (a[j]<a[j+1])
-				swap(a[j],a[j+1]);
+			if (a[j]>a[j-1])
+				swap(a[j],a[j-1]);
 		}
 	}
 	
