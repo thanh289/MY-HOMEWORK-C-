@@ -1,147 +1,120 @@
 #include <iostream>
+#include <ctime> //for time
+#include <cstdlib> //for srand() and rand()
 using namespace std;
-
-//khai bao do lon mang
-#define MAX 1000
-
 
 //ham nhap mang
 void nhapmang(int arr[], int &n)
 {
-	cout<<"Nhap so luong phan tu: ";
-	cin>>n;
+	//khoi tao bien random
+	srand(time(NULL));
 	
-	cout<<"Nhap cac phan tu cua mang:"<<endl;
-	for(int i=0;i<n;i++)
-	{
-		cin>>arr[i];
-	}
+	//nhap mang random
+	for(int i=0; i<n; i++)
+		arr[i] = rand();
+	
 }
 
 
 //ham xuat mang
 void xuatmang(int arr[], int n)
 {
-	for(int i=0; i<n;i++)
-	{
+	for(int i=0; i<n; i++)
 		cout<<arr[i]<<" ";
-	}
 }
 
-//gôp hai mang con arr[l....mid] va [mid+1.....r]
-void merge(int arr[], int l, int mid, int r)
+//ham hop mang
+void merge(int arr[], int start, int mid, int end)
 {
-	//so phan tu cua mang con trai
-	//can cong 1 de luu so o mid, co the chay tay de hieu hon
-	int n1=mid-l+1;
+	//khoi tao hai bieen la so phan tu cua hai mang con
+	int n1= mid-start+1;
+	int n2= end-mid;
 	
-	//so phan tu cua mang phai
-	int n2=r-mid;
+	//khoi tao hai mang con
+	int left[n1], right[n2];
+	//gan tung phan tu ham chinh vao hai ham con
+	for(int i=0; i<n1; i++) left[i]= arr[start+i];
+	for(int j=0; j<n2; j++) right[j]= arr[mid+1+j];
 	
-	//khoi tao hai mang trai va phai la hai mang con
-	int left[n1]; int right[n2];
+	//tao hai bien soat trong hai mang con
+	int x=0;
+	int y=0;
+	//tao bien soat trong ham chinh
+	int k=start;
 	
-	//gan tung phan tu cua mang chinh vao hai mang con
-	for(int i=0; i<n1; i++)   left[i]=arr[l+ i];
-	for(int j=0; j<n2; j++)   right[j]=arr[mid+1+j];
-		
-	
-	//tien hanh sap sep laij mang
-	//khoi tao hai bien de soat trong hai mang con
-	int x=0, y=0;
-	
-	//khoi tao bien soat trong mang chinh
-	int k=l;
-	
-	//vong lap gan cac bien roi sap xep vao mang chinh
-	while(x<n1 && y<n2)
+	//phan hop mang
+	while (x<n1 && y<n2)
 	{
-		//neu phan tu o mang trai > phan tu o mang phai
-		if(left[x]>= right[y])
-		{
-			//gan phan tu o mang phai vao mang chinh
-			//vi ta sap xep tang dan nen phai gan lan luot tu nho den lon
-			arr[k]= right[y];
-			//sau khi gan xong, chuyen toi phan tu tiep theo cua mang phai de tiep tuc ktra
-			y++;
-		}
-		
-		
-		//tuong tu voi truong hop phan tu o mang trai < phan tu o mang phai
-		else if(left[x]< right[y])
+		//so sanh phan tu dau tien cua hai mang, neu phan tu cua left nho hon phan tu cua right thi gan vao mang chinh
+		if (left[x]<= right[y])
 		{
 			arr[k]= left[x];
+			//gan xong thi tang len ktra phan tu tiep theo
 			x++;
 		}
-		//sau khi gan xong tiep tuc tang bien k de gan tiep
+		
+		//tuong hop voi truong hop tren
+		else if (left[x]> right[y])
+		{
+			arr[k]= right[y];
+			y++;
+		}
+		//gan phan tu vao mang chinh xong thi tang len de gan tiep
 		k++;
 	}
 	
-	//voi truong hop khi mot trong hai mang da het phan tu, ta gan tat ca cac phan tu con lai vao mang chinh boi cac phan tu da duoc sap xep
-	//neu van con phan tu o mang trai
+	//neu phan tu o mang right da het thi gan not cac phan tu con lai cua mang left vao arr
+	//truoc do cac phan tu con lai da sap xep theo dung thu tu
 	if(x< n1)
 	{
-		arr[k]= left[x];
-		x++;
+		arr[k]=left[x];
 		k++;
+		x++;
 	}
 	
-	//neu van con phan tu o mang phai
+	//tuong tu voi truong hop phan tu mang left da het
 	if(y< n2)
 	{
 		arr[k]= right[y];
 		k++;
 		y++;
 	}
-	
 }
 
-
-//mergesort
-//l là chi so trai và r là chi so phai cua mang can sap xep
-void mergeSort(int arr[], int l, int r)
+//ham thuc hien sort
+//left vaf right la doan ma muon sap xep
+void mergeSort(int arr[], int left, int right)
 {
 	int mid;
-	if(l< r)
+	if(left<right)
 	{
-		mid= (l+ r)/2;
+		mid=(left + right)/2;
 		
 		//goi hàm de quy tiêp tuc chia dôi tung mang
-		mergeSort(arr, l, mid);
-		mergeSort(arr, mid+1, r);
-		merge(arr, l, mid, r);
+		mergeSort(arr, left, mid);
+		mergeSort(arr, mid+1, right);
+		merge(arr, left, mid, right);
 	}
-	
 }
-
 
 //ham main
 int main()
 {
-	//khai bao mang va so phan tu cua mang
+	//khai bao
+	int MAX;
+	cout<<"Nhap so phan tu cua mang: ";
+	cin>>MAX;
 	int my_array[MAX];
-	int n_size;
 	
 	//nhap xuat mang
-	nhapmang(my_array, n_size);
+	nhapmang(my_array, MAX);
 	cout<<"Mang truoc khi sap xep la: ";
-	xuatmang(my_array, n_size);
+	xuatmang(my_array, MAX);
 	
-	
-	//goi lai ham mergeSort
-	mergeSort(my_array, 0, n_size);
-	cout<<"\n\nMang sau khi sap xep la: ";
-	xuatmang(my_array, n_size);
-	
+	//sau khi sap xep
+	mergeSort(my_array, 0, MAX);
+	cout<<"\nMang sau khi sap xep la: ";
+	xuatmang(my_array, MAX);
 	
 return 0;
 }
-
-
-
-
-
-
-
-
-
