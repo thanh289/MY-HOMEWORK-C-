@@ -1,7 +1,9 @@
 #include <iostream>
+#include <ctime> //for time()
+#include <cstdlib> //for rand() and srand()
 using namespace std;
 
-# define MAX 1000
+
 
 //a Duy day cach dung pivot la phan tu o giua mang
 //tuy nhien cach nay co the khien pivot bi thay doi vi tri, gay kho hieu
@@ -10,15 +12,20 @@ using namespace std;
 //qua trinh phan doan
 int partition (int arr[], int low, int high)
 {
-    int pivot = arr[high];    // pivot
+    int pivot = arr[high];    // pivot la phan tu cuoi mang
+    
+    //xet khoang tu low den high -1 
     int left = low;
     int right = high - 1;
     
     while(true)
 	{
-        while(left <= right && arr[left] < pivot) //tim phan tu lon hon pivot
+		//tim phan tu lon hon pivot
+		//hieu don gian la neu arr[left] > pivot, vong while se dung va bien se dung tai vi tri can doi vi tri
+        while(left <= right && arr[left] < pivot) 
 			left++;   
-        while(right >= left && arr[right] > pivot) //tim phan tu nho hon pivot
+		//tim phan tu nho hon pivot
+        while(right >= left && arr[right] > pivot) 
 			right--;
         
         //neu da duyet xong thi thoat vong lap
@@ -33,6 +40,24 @@ int partition (int arr[], int low, int high)
     swap(arr[left], arr[high]);
     return left;
 }
+
+/*comment chu y: thu su thi minh da thu neu vong while(left <=right)
+  nhin thi co ve se khong co j xay ra nhung no se loi trong truong hop left=right
+
+    while(left <= right)
+	{
+
+        while(arr[left] < pivot) 
+			left++;   
+        while(arr[right] > pivot) 
+			right--;
+			
+        swap(arr[left], arr[right]);
+        left++;
+        right--;
+    }
+
+*/
 
 /*VI DU CHO QUA TRINH PHAN DOAN
 arr[] = {10, 80, 30, 90, 40, 50, 70}
@@ -83,14 +108,12 @@ void quickSort(int arr[], int low, int high)
 //ham nhap mang
 void nhapmang(int arr[], int &n)
 {
-	cout<<"Nhap so luong phan tu: ";
-	cin>>n;
+	//khoi tao bien ngau nhien
+	srand(time(NULL));
 	
-	cout<<"Nhap cac phan tu cua mang:"<<endl;
+	//nhap mang so ngau nhien
 	for(int i=0;i<n;i++)
-	{
-		cin>>arr[i];
-	}
+		arr[i]= rand();
 }
 
 
@@ -108,19 +131,22 @@ void xuatmang(int arr[], int n)
 int main()
 {
 	//khai bao mang va so phan tu cua mang
+	int MAX;
+	cout<<"Nhap so phan tu cua mang: ";
+	cin>>MAX;
 	int my_array[MAX];
-	int n_size;
+
 	
 	//nhap xuat mang
-	nhapmang(my_array, n_size);
+	nhapmang(my_array, MAX);
 	cout<<"Mang truoc khi sap xep la: ";
-	xuatmang(my_array, n_size);
+	xuatmang(my_array, MAX);
 	
 	
 	//goi lai ham mergeSort
-	quickSort(my_array, 0, n_size);
+	quickSort(my_array, 0, MAX);
 	cout<<"\n\nMang sau khi sap xep la: ";
-	xuatmang(my_array, n_size);
+	xuatmang(my_array, MAX);
 	
 	
 return 0;
