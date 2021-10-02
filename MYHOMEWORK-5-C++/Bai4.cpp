@@ -2,33 +2,29 @@
 #include <vector>
 using namespace std;
 
-//tao du lieu
+//cach nay do phuc tap qua lon
+
+/*
 struct find_way{
 	int city1;
 	int city2;
 	int distance;
 };
 
-//ham tao map
 void city_map (vector <find_way> &map, int city,  int way)
 {
-	//thay doi kich thuoc cua vecto
+
 	map.resize(way);
 
-	//nhap thanh pho 1, thanh pho 2 va khoang cach hai thanh pho
+
 	cout<<"Nhap du lieu cho ban do: "<<endl;
 	for(int i=0; i<way; i++)
 	{
 		cin>>map[i].city1>>map[i].city2>>map[i].distance;
-			
-		//dieu kien
-		if(map[i].city1> city or map[i].city2>city)
-			break;
 	}
 }
 
 
-//ham tim thanh pho lan can
 void near_city(vector <find_way> &map, int city)
 {
 	cout<<"Cac duong co the di: "<<endl;
@@ -60,24 +56,73 @@ void distance_to_city(vector <find_way> &map, int city)
 }
 
 
-//ham main
+
 int main()
 {
-	//tao so thanh pho va so canh
 	int n, m;
 	cout<<"Nhap so thanh pho: ";
 	cin>>n;
 	cout<<"Nhap so duong: ";
 	cin>>m;
-	//tao vector
+
 	vector <find_way> vec;
 	city_map(vec, n, m);
 	
-	//
+	
 	near_city(vec, n);
 	
-	//
 	distance_to_city(vec, n);
 return 0;
 }
 
+*/
+
+
+//cach hay
+int main()
+{
+	//n: the number of city
+	//m: the number of ways
+	int n, m;
+	cin>>n>>m;
+	//create vector
+	vector<vector<int> > data(m+1);
+	//creat 2D array to save distance
+	int distance[m+1][m+1];
+	
+	for(int i=1; i<=m; i++)
+	{
+		//type city1, city2 and distance 
+		int a, b, x;
+		cin>>a>>b>>x;
+		
+		//reason to use vector here
+		//from one city we can travel to other city
+		//that mean using vector doesn't limit the elements each row
+		data[a].push_back(b);
+		data[b].push_back(a);
+		
+		//here is the reason why we use 2D array
+		distance[a][b]=distance[b][a]=x;
+	}
+	
+	
+	cout<<"Ý 1"<<endl;
+	for(int i=1; i<=n; i++)
+	{
+		cout<<i<<" --> ";
+		for(int j=0; j<data[i].size(); j++)  	//data[i].size: number  of elements in row i
+			cout<<data[i][j]<<",";
+		cout<<endl;
+	}
+	
+	cout<<"Ý 2"<<endl;
+	for(int i=1; i<=n; i++)
+	{
+		cout<<"Khoang cach tu thanh pho "<<i<<" den cac thanh pho khac: "<<endl;
+		for(int j=0; j<data[i].size(); j++)
+		{
+			cout<<"Den thanh pho "<<data[i][j]<<" la: "<<distance[i][data[i][j]]<<endl;
+		}
+	}
+}
