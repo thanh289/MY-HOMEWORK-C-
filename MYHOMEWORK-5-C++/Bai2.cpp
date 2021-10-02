@@ -16,8 +16,22 @@ void nhapMaTran(vector<vector <int> > &vec, int row, int col)
 		for(int j=0; j<col; j++)
 		{
 			vec[i][j]= rand();
+			//vec.at(i).at(j)=rand(); (cach nhap khac)
 		}
 	}
+	
+	//cach 2: 
+	//cach nay chi su dung khi chua biet do lon cu the cua mang
+	
+//	for(int i=0; i<vec[i].size(); i++)
+//	{
+//		for(int j=0; j<col; j++)
+//		{
+//			vec[i].push_back(rand());
+//		}
+//	}
+	
+	
 }
 
 
