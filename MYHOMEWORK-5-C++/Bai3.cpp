@@ -26,7 +26,6 @@ void inputPoint(vector<toado> &point, int n)
 		cin>>point[i].x>>point[i].y;
 	}
 	
-	
 	//in ra man hinh
 	cout<<"Ta co cac diem: "<<endl;
 	for(int i=0; i<n; i++)
@@ -35,6 +34,16 @@ void inputPoint(vector<toado> &point, int n)
 		cout<<endl;
 	}
 		
+		
+	//cách 2: thao tac voi vector nhieu hon, kieu kia gan giong mang 2D(chon cach nào cung duoc)
+	/*
+	toado tmp;
+	cin>>tmp.x>>tmp.y;
+	point.push_back(tmp);
+	
+	for(int i=0; i<point.size(); i++)
+		cout<<"("<<point[i].x<<";"<<point[i].y<<")";
+	*/
 }
 
 
