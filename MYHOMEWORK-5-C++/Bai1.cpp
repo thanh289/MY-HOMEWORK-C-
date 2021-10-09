@@ -28,7 +28,7 @@ int main()
     vec.erase(vec.begin()+2);
 
     //loai bo tat ca phan tu trong vector
-    //vec.erase();
+    //vec.erase(vec.begin(), vec.end());
 
     //kich co mang
     int s=vec.size();
