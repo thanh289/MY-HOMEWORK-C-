@@ -32,3 +32,5 @@ int main()
 	cout<<"\nvalue you want find: "; cin>>k;
 	cout<<"the value's position: "<<binary_search(arr, n, k)<<endl;
 }
+
+//we have the function lower_bound and upper_bound to use
