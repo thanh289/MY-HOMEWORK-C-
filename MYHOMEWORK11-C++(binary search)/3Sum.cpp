@@ -21,14 +21,33 @@ int main()
 {
 	int n; cin>>n;
 	int arr[n];
-	for(int i=0; i<n; i++) cin>>arr[i];
+	map <int,int> m;
+	for(int i=0; i<n; i++){
+		int x; cin>>x;
+		if(m[x] < 2){
+			m[x]++;
+			arr[i] = x;
+		}
+		else{
+			n--; i--;
+		}
+	}
+
 	sort(arr, arr+n);
 	
-	for(int i=0; i<n-1; i++)
+	for(int i=0; i<n; i++) cout<<arr[i]<<" ";
+	for(int i=0; i<n; i++)
 	{
-		if(arr[i]==arr[i+1]) continue;
+		if(i>=1){
+			if(arr[i]==arr[i-1])
+				continue;
+		}
 		for(int j=i+1; j<n; j++)
 		{
+			if(j>=i+2){
+				if(arr[j]==arr[j-1])
+					continue;
+			}
 			int m=0-arr[i]-arr[j];
 			int x=binary_search(arr,0,arr[n-1],m);
 			if(x!=-1 && x!=i && x!=j)
@@ -37,3 +56,6 @@ int main()
 	}
 	
 }
+
+
+
