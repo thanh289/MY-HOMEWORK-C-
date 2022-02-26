@@ -25,9 +25,7 @@ int binary(ll n)
 
 int main()
 {
-	while(true)
-	{
+
 	ll n; cin>>n;
 	cout<<binary(n)<<endl; 
-}
 }
