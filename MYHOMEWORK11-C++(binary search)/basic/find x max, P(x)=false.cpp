@@ -29,3 +29,5 @@ int main()
 	int a[]={1,1,1,1,2,2,3,3,3,3,3,3,5,5,5,5,5,6,6,7};
 	cout<<"vi tri khoa: "<<binary_search(0, n-1, k, a);
 }
+
+
