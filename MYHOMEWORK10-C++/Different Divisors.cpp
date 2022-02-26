@@ -6,20 +6,21 @@ int isPrime[k];
 //y tuong :
 //b1: sang nguyen to
 //b2: so thoa man ycau de bai la so co 4 uoc, 1, chinh no (n) va 2 uoc nguyen to i,j thoa man i*j=n
-int main()
-{
-	for(int i=2; i*i<k; i++)
-		if(!isPrime[i])
-			for(int j=i*i; j<k; j+=i) isPrime[j]=1;
-	
+int main(){
+	for(int i=2; i*i<k; i++){
+		if(!isPrime[i]){
+			for(int j=i*i; j<k; j+=i)
+				isPrime[j] = 1;
+		}
+	}
 
+	
 	int t; cin>>t;
-	while(t--)
-	{
+	while(t--){
 		int d; cin>>d;
 		int i, j;
-		for(i=d+1;isPrime[i];) i++;
-		for(j=i+d;isPrime[j];)j++;
-		cout<<i*j<<endl;
+		for(i=d+1; isPrime[i];)i++; // i phai bat dâu tu d+1 vì sô n có uoc la 1 thì uoc kia cung phai hon 1 la d
+		for(j=i+d; isPrime[j];)j++;
+		cout<<j*i<<endl;
 	}
 }
